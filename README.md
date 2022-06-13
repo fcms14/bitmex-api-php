@@ -14,7 +14,9 @@
 ## About
 
 I started this project using BitMex REST API in PHP with HTTP Keep-Alive support
+
 The user can enter his api key, which will be stored in his browser's localStorage, to have access to his account data.
+
 Front-End in html, css and javascript
 
 [![FrontEnd](https://raw.githubusercontent.com/fcms14/bitmex-api-php/master/assets/front.jpg)](https://raw.githubusercontent.com/fcms14/bitmex-api-php/master/assets/front.jpg)

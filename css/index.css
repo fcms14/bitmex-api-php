@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+* {
+    border: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    height: 100%;
+}
+
+body {
+    background-color: #030B0D;
+    width: 100%;
+    height: calc(100% - 10px);
+
+    
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    font-family: 'Roboto';
+    font-size: 12px;
+    color: aliceblue;
+    
+    display: grid;
+    grid-template-columns: 2fr 260px 300px;
+    grid-template-rows:  1fr 270px 350px;
+    grid-template-areas: 
+    "tvChart tvChart bookOffers"
+    "positionMngt orderForm bookOffers"
+    "mainTable mainTable bookOffers";
+    grid-gap: 10px;
+    padding: 20px;
+    padding-top: 50px;
+}
+
+button:disabled,
+button[disabled],
+button[disabled]:hover{
+  opacity: 0.2;
+  cursor: default;
+}
+
+#addKeys, #editKeys {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    background-color: #065E7C;
+    padding: 10px 10px;
+    border-radius: 5px;
+    
+
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    color: #FFFFFF;
+    cursor: pointer;
+
+    display: none;
+
+    z-index: 2;
+}
+
+#formKeys{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    width: 250px;
+    background-color: #043444;
+    border-collapse: collapse;
+    border-radius: 12px;
+
+    color: #FFFFFF;
+    
+    display: none;
+
+
+    padding: 10px 10px;
+
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    z-index: 3;
+
+}
+
+#closeDiv{
+    position: absolute;
+    background-color: #F75A68;
+
+    top: 7px;
+    right: 7px;
+    border-radius: 12px;
+    padding: 5px 8px;
+
+
+    cursor: pointer;
+}
+
+.displayOn {
+    display: flex !important;
+}
+
+main, .positionMngt, .mainTable, .orderForm, .tvChart {
+    width: 100%;
+    height: 100%;
+    
+    margin: 0 auto;
+    border: 1px #4a808c solid;
+    border-radius: 12px;
+    
+    overflow: overlay;    
+    position: relative;
+}
+main{
+    grid-area: bookOffers;
+    /* resize: horizontal; */
+}
+
+.positionMngt{
+    grid-area: positionMngt;
+}
+
+.mainTable{
+    grid-area: mainTable;
+    resize: vertical;
+}
+
+.orderForm{
+    grid-area: orderForm;    
+}
+
+.tvChart{
+    grid-area: tvChart;
+    resize: vertical;
+}
+
+#tradingview_9c82d{
+    height: 100%;
+}
+
+h1{
+    text-align: center;
+    font-size: 12px;
+}
+
+.positionMngt button, .tvChart button, .mainTable button, #saveKeys {
+    background-color: #065E7C;
+    padding: 10px 0;
+    margin: 10px 0 10px 10px;
+    border-radius: 5px;
+    width: 30%;   
+    
+
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    color: #FFFFFF;
+
+    cursor: pointer;
+
+    transform: opacity(1);
+}
+
+table {
+    width: 100%;
+    background-color: #043444;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: auto;
+    position: relative;
+}
+
+table thead th {
+    text-align: right;
+    padding: 10px 10px;
+    background-color: #043444;
+
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+
+}
+
+.mainTable table tr td button {
+    background-color: #F75A68;
+    padding: 5px 0;
+    margin: 0;
+    width: 100%;
+}
+
+table tbody tr {
+    background-color: #030B0D;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #07181c;
+}
+
+/* #bookOffers tr td { */
+tr td {
+    text-align: right;
+    padding: 5px 10px;
+
+    border-bottom: 1px solid #4a808c;
+
+    transition: all 200ms;
+}
+
+/* #bookOffers tr:hover, */
+/* #bookOffers tr:hover td{ */
+tr:hover,
+tr:hover td{
+    background-color: #FFFFFF05 ;    
+    color: #F75A68 ;
+}
+
+.row {
+    animation: fade-in 600ms;
+}
+
+.change {
+    animation: fade-out 600ms;
+}
+
+.buyBook{
+    color: #20ec4c;
+}
+
+.sellBook{
+    color: #F75A68;
+}
+
+@keyframes fade-in {
+    from {
+        color: aqua;
+        background-color: #FFFFFF55 ;
+    }
+
+    to {        
+        color: aliceblue;
+        background-color: #FFFFFF05 ;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        color: aqua;
+        background-color: #FFFFFF55 ;
+    }
+
+    to {        
+        color: aliceblue;
+        background-color: #FFFFFF05 ;
+    }
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+    margin-top: 30px;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    background-color: #4a808c;
+    border-radius: 10px;
+}
+
+
+header input::placeholder {
+    text-align: right;
+    color: #FFFFFF50;
+
+}
+
+
+.orderForm form header {
+    width: 100%;
+    padding: 10px 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.orderForm form header input, #formKeys input {
+    width: 90%;
+    background-color: #07181c;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #FFFFFF;
+}
+
+.orderForm form header button {
+    background-color: #065E7C;
+    padding: 10px 0;
+    margin: 10px 0;
+    border-radius: 5px;
+    width: 40%;
+    
+
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    color: #FFFFFF;
+
+    cursor: pointer;
+
+    transform: opacity(1);
+}
+
+.orderForm form header button:last-child{
+    background-color: #F75A68;
+}
+
+button:hover {
+    opacity: 0.6;
+}

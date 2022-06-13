@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MVP - Crypto Exchange - Using Bitmex API</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+
+    <div id="addKeys">
+        Adicionar Chaves
+    </div>
+
+    <div id="editKeys">
+        Alterar Chaves
+    </div>
+
+    <div id="formKeys" class="">
+        <label for="apiID"> API Key ID </label> <span id="closeDiv"> X </span>
+        <input id="apiID" type="text" />
+        <br />
+        <label for="apiSecret"> API Key Secret </label>
+        <input id="apiSecret" type="text" />
+
+        <br />
+        <label for="testnet"> Testnet? </label>
+        <input id="testnet" type="checkbox" />
+
+        <div id="saveKeys"> Gravar </div>
+    </div>
+
+    <!-- TradingView Widget BEGIN -->
+    <div class="tvChart">
+        <div id="tradingview_9c82d"></div>
+        <div class="tradingview-widget-copyright"><a href="https://br.tradingview.com/symbols/XBTUSD/?exchange=BITMEX"
+                rel="noopener" target="_blank"><span class="blue-text">Gráfico XBTUSD</span></a> por TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+            new TradingView.widget(
+                {
+                    "autosize": true,
+                    "symbol": "BITMEX:XBTUSD",
+                    "interval": "60",
+                    "timezone": "America/Sao_Paulo",
+                    "theme": "dark",
+                    "style": "9",
+                    "locale": "br",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": true,
+                    "withdateranges": true,
+                    "hide_side_toolbar": false,
+                    "studies": [
+                        "BB@tv-basicstudies"
+                    ],
+                    "show_popup_button": true,
+                    "popup_width": "100%",
+                    "popup_height": "100%",
+                    "container_id": "tradingview_9c82d"
+                }
+            );
+        </script>
+    </div>
+    <!-- TradingView Widget END -->
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="bookOffers">
+            </tbody>
+        </table>
+    </main>
+
+
+    <section class="positionMngt">
+        <button value="popPositions"> Posições Abertas </button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ticker</th>
+                    <th>Volume</th>
+                    <th>Valor</th>
+                    <th>Preço</th>
+                    <th>Liq.</th>
+                    <th>PNL Aberto</th>
+                    <th>PNL</th>
+                </tr>
+            </thead>
+            <tbody id="openPositions">
+            </tbody>
+        </table>
+    </section>
+
+    <section class="orderForm">
+        <form action="#" id="createOrder" autocomplete="off">
+            <header>
+                <label for="price"> Digite o valor da oferta </label>
+                <input id="price" type="number" placeholder="USDT " max="5" />
+
+                <label for="quantity"> Digite a Quantidade </label>
+                <input id="quantity" type="number" placeholder="XBT " max="3" />
+
+                <label for="volume"> Volume Total da Oferta </label>
+                <input id="volume" disabled placeholder="USDT " />
+
+                <button id="buyOrder" value="createOrder" name="Buy"> Comprar </button>
+                <button id="sellOrder" value="createOrder" name="Sell"> Vender </button>
+            </header>
+        </form>
+    </section>
+
+    <section class="mainTable">
+        <button value="popOpenOrders"> Ordens Abertas </button>
+        <button value="popOrders"> Histórico de Ordens </button>
+        <button value="popWalletHistory"> Extrato </button>
+        <table id="mainTable">
+        </table>
+        </div>
+    </section>
+
+
+</body>
+<script src="js/index.js" type="module"></script>
+
+</html>

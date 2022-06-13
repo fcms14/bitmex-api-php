@@ -70,6 +70,9 @@ const actions = {
     },
 }
 
+quantity.addEventListener('keydown', () => volume.value = (quantity.value / price.value).toFixed(4));
+price.addEventListener('keydown', () => volume.value = (quantity.value / price.value).toFixed(4));
+
 const buttons   = document.querySelectorAll(`button`);
 for (let button of buttons){
     button.addEventListener('click', await handle) 

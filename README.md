@@ -14,10 +14,12 @@
 ## About
 
 I started this project using BitMex REST API in PHP with HTTP Keep-Alive support
+The user can enter his api key, which will be stored in his browser's localStorage, to have access to his account data.
+Front-End in html, css and javascript
 
-[![FrontEnd](https://prnt.sc/bJ7Fy8yZRW4Q)](https://lynxsw.com.br/mvpCryptoExchange/)
+[![FrontEnd](https://raw.githubusercontent.com/fcms14/bitmex-api-php/master/assets/front.jpg)](https://raw.githubusercontent.com/fcms14/bitmex-api-php/master/assets/front.jpg)
 
-I implemented the methods: 
+Methods implemented: 
 - [x] - getOrderBook: Get Public Order Book
 - [x] - getOpenOrders: Get your open orders
 - [x] - getOpenPositions: Get all your open positions
@@ -25,10 +27,6 @@ I implemented the methods:
 - [x] - getWalletHistory: Get your account wallet
 - [x] - createOrder: Create new order
 - [x] - cancelOpenOrders: Cancels a selected open order
-
-Front end in html, css and javascript
-
-The user can enter his api key, which will be stored in his browser's localStorage, to have access to his account data.
 
 To Do:
 - [ ] - Display Portfolio Balance; Unrealised PNL; Margin Balance;

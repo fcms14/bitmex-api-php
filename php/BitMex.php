@@ -697,7 +697,7 @@ public function getCandles($timeFrame, $startWhen, $endWhen, $offset = 0) {
 
     $function = $data['function'];
     $params = http_build_query($data['params']);
-    $url = $this->API_URL . self::API_PATH . $function . "?" . $params;;
+    $url = $this->API_URL . self::API_PATH . $function . "?" . $params;
 
     $headers = array();
 

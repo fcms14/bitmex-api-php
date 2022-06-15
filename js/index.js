@@ -53,7 +53,7 @@ const actions = {
             if (filled){
                 await actions.popOpenOrders();
                 await actions.popPositions();
-                new Audio('../assets/filled.mp3').play();
+                new Audio('./assets/filled.mp3').play();
             }
             actions.countDown();
         }, 5000)

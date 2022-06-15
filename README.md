@@ -30,10 +30,10 @@ Methods implemented:
 - [x] - createOrder: Create new order
 - [x] - cancelOpenOrders: Cancels a selected open order
 - [x] - Create an alert for filled order
+- [x] - Request withdrawal
 
 To Do:
 - [ ] - Display Portfolio Balance; Unrealised PNL; Margin Balance;
-- [ ] - Request withdrawal
 - [ ] - Select other pairs to trade
 
 In the near future, I intend to implement integration with other exchanges, such as FTX and Binance.

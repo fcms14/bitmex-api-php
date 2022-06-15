@@ -132,7 +132,7 @@ export function popOpenOrders(tableElement, data, bitmex){
 
             row.querySelector('button').onclick = async (event) => {
 				await bitmex.cancelOpenOrders("cancelOpenOrders", event.target.value);
-				popOpenOrders(mainTable, await bitmex.get("getOpenOrders"), bitmex);
+				popOpenOrders(tableElement, await bitmex.get("getOpenOrders"), bitmex);
             };
 		}	
 	}

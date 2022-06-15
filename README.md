@@ -29,10 +29,10 @@ Methods implemented:
 - [x] - getWalletHistory: Get your account wallet
 - [x] - createOrder: Create new order
 - [x] - cancelOpenOrders: Cancels a selected open order
+- [x] - Create an alert for filled order
 
 To Do:
 - [ ] - Display Portfolio Balance; Unrealised PNL; Margin Balance;
-- [ ] - Create an alert for executed order
 - [ ] - Request withdrawal
 - [ ] - Select other pairs to trade
 

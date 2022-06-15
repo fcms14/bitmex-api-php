@@ -39,14 +39,22 @@ function createHeaders(row, columnTitle){
 	}
 }
 
-export function popOrderBook(tableElement, data){
-
+export function popOrderBook(tableElement, data, openOrders){
+	
 	if(data.length > 0) {		
 		const table					=	tableElement;
 		let total 					=	0;
-		const buyOffers 			= data.filter((n) => n.side ==='Buy');
-		const sellOffers 			= data.filter((n) => n.side ==='Sell');
-		
+		const buyOffers 			= 	data.filter((n) => n.side ==='Buy');
+		const sellOffers 			= 	data.filter((n) => n.side ==='Sell');
+		let filled					=	false
+
+		if (openOrders) {
+			const {price: closestBuyOrder  } =	openOrders.filter((n) => n.side ==='Buy'  && n.symbol == data[0].symbol).sort((a,b)=>a.price-b.price).reverse()[0] || {price: "null"};
+			const {price: closestSellOrder } =	openOrders.filter((n) => n.side ==='Sell' && n.symbol == data[0].symbol).sort((a,b)=>a.price-b.price)[0] || {price: "null"};
+	
+			filled					=	buyOffers[0].price <= closestBuyOrder || sellOffers[24].price >= closestSellOrder;
+		}
+
 		for (let i = sellOffers.length - 1; i >= 0; i--) {
 			total += sellOffers[i].size
 			table.rows[i].classList.add("sellBook");
@@ -62,6 +70,7 @@ export function popOrderBook(tableElement, data){
 			table.rows[row].classList.add("buyBook");
 			createCells(table.rows[row++], buyOffers[i].price.toFixed(1), buyOffers[i].size, total);			
 		}
+		return filled;
 	}
 }
 
@@ -134,7 +143,8 @@ export function popOpenOrders(tableElement, data, bitmex){
 				await bitmex.cancelOpenOrders("cancelOpenOrders", event.target.value);
 				popOpenOrders(tableElement, await bitmex.get("getOpenOrders"), bitmex);
             };
-		}	
+		}
+		return data;
 	}
 }
 

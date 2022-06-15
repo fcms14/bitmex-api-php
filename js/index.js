@@ -4,18 +4,19 @@ import { popWalletHistory, popOpenOrders, popOrders, popPositions, popOrderBook,
 
 const localStorage = new LocalStorage();
 let bitmex;
+let openOrders;
 
 const actions = {
     popWalletHistory : async()                    => popWalletHistory(mainTable, await bitmex.get("getWalletHistory")),
-    popOpenOrders : async ()                      => popOpenOrders(mainTable, await bitmex.get("getOpenOrders"), bitmex),
+    popOpenOrders : async ()                      => openOrders = popOpenOrders(mainTable, await bitmex.get("getOpenOrders"), bitmex),
     popOrders :     async ()                      => popOrders(mainTable, await bitmex.get("getOrders")),
     popPositions :  async ()                      => popPositions(openPositions, await bitmex.get("getOpenPositions")),
     createOrder :   async (name) => {
         if(name && price && quantity){
             if(confirm(`Enviar ${ name } order de ${quantity.value} contratos no valor de: $ ${price.value} ? `)){
                 await bitmex.createOrder("createOrder", "Limit", name, price.value, quantity.value);
-                await actions['popOpenOrders']();
-                await actions['popPositions']();
+                await actions.popOpenOrders();
+                await actions.popPositions();
             }
 
         }
@@ -48,7 +49,12 @@ const actions = {
     },
     countDown   : () => {
         setTimeout(async function () {
-            popOrderBook(bookOffers, await bitmex.get("getOrderBook"));
+            const filled = popOrderBook(bookOffers, await bitmex.get("getOrderBook"), openOrders);
+            if (filled){
+                await actions.popOpenOrders();
+                await actions.popPositions();
+                new Audio('../assets/filled.mp3').play();
+            }
             actions.countDown();
         }, 5000)
         divBook.scrollTo(0,300);

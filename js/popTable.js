@@ -80,13 +80,16 @@ export function popPositions(tableElement, data){
 			const valueFormated		=	totalFormat(qtyFormated, data[i].avgEntryPrice, data[i].currency);
 			const decimals			=	data[i].currency == "USDt" ? 4 : 2
 
-			row.insertCell(0).innerHTML	    	=	data[i].symbol;
-			row.insertCell(1).innerHTML	    	=	`${qtyFormated.toFixed(decimals)}  ${currency}`;
-			row.insertCell(2).innerHTML	    	=	valueFormated.toFixed(2);
-			row.insertCell(3).innerHTML	    	=	data[i].avgEntryPrice.toFixed(2);
-			row.insertCell(4).innerHTML	    	=	data[i].liquidationPrice.toFixed(2);
-			row.insertCell(5).innerHTML	    	=	(data[i].unrealisedPnl / 1000000).toFixed(2);
-			row.insertCell(6).innerHTML	    	=	(data[i].rebalancedPnl / 1000000).toFixed(2);
+			row.insertCell(0).innerHTML	    	=	qtyFormated > 0 ? "Compra" : "Venda";
+			row.insertCell(1).innerHTML	    	=	data[i].symbol;
+			row.insertCell(2).innerHTML	    	=	`${qtyFormated.toFixed(decimals)}  ${currency}`;
+			row.insertCell(3).innerHTML	    	=	valueFormated.toFixed(2);
+			row.insertCell(4).innerHTML	    	=	data[i].avgEntryPrice.toFixed(2);
+			row.insertCell(5).innerHTML	    	=	data[i].liquidationPrice.toFixed(2);
+			row.insertCell(6).innerHTML	    	=	(data[i].unrealisedPnl / 1000000).toFixed(2);
+			row.insertCell(7).innerHTML	    	=	(data[i].rebalancedPnl / 1000000).toFixed(2);
+
+			row.classList = qtyFormated > 0 ? "borderBuy" : "borderSell";
 		}	
 	}
 }
@@ -103,7 +106,7 @@ export function popOpenOrders(tableElement, data, bitmex){
 		const thead				=	tableElement;
 		const header			=	thead.createTHead();
 		const row 				=	header.insertRow(0);
-		const columnTitle = ["Ticker","Volume","Valor","Preço","Preenchido","Restante","Status","Cancelar"]
+		const columnTitle = ["Tipo","Ticker","Volume","Valor","Preço","Preenchido","Restante","Status","Cancelar"]
 		createHeaders(row, columnTitle);
 		const table				=	thead.createTBody();
 	
@@ -115,14 +118,17 @@ export function popOpenOrders(tableElement, data, bitmex){
 			const valueFormated		=	totalFormat(qtyFormated, data[i].price, data[i].settlCurrency);
 			const decimals			=	data[i].settlCurrency == "USDt" ? 4 : 2
 
-			row.insertCell(0).innerHTML	    	=	data[i].symbol;
-			row.insertCell(1).innerHTML	    	=	`${qtyFormated.toFixed(decimals)}  ${currency}`;
-			row.insertCell(2).innerHTML	    	=	valueFormated.toFixed(2);
-			row.insertCell(3).innerHTML	    	=	data[i].price.toFixed(2);
-			row.insertCell(4).innerHTML	    	=	qtyFormat(data[i].cumQty, data[i].settlCurrency).toFixed(decimals);
-			row.insertCell(5).innerHTML	    	=	qtyFormat(data[i].leavesQty, data[i].settlCurrency).toFixed(decimals);
-			row.insertCell(6).innerHTML	    	=	data[i].ordStatus;
-			row.insertCell(7).innerHTML	    	=	`<button value='${data[i].orderID}'> X </button>`;
+			row.insertCell(0).innerHTML	    	=	data[i].side == "Buy" ? "Compra" : "Venda";
+			row.insertCell(1).innerHTML	    	=	data[i].symbol;
+			row.insertCell(2).innerHTML	    	=	`${qtyFormated.toFixed(decimals)}  ${currency}`;
+			row.insertCell(3).innerHTML	    	=	valueFormated.toFixed(2);
+			row.insertCell(4).innerHTML	    	=	data[i].price.toFixed(2);
+			row.insertCell(5).innerHTML	    	=	qtyFormat(data[i].cumQty, data[i].settlCurrency).toFixed(decimals);
+			row.insertCell(6).innerHTML	    	=	qtyFormat(data[i].leavesQty, data[i].settlCurrency).toFixed(decimals);
+			row.insertCell(7).innerHTML	    	=	data[i].ordStatus;
+			row.insertCell(8).innerHTML	    	=	`<button value='${data[i].orderID}'> X </button>`;
+
+			row.classList = data[i].side == "Buy" ? "borderBuy" : "borderSell";
 
             row.querySelector('button').onclick = async (event) => {
 				await bitmex.cancelOpenOrders("cancelOpenOrders", event.target.value);
@@ -159,6 +165,7 @@ export function popOrders(tableElement, data){
 			row.insertCell(5).innerHTML	    	=	data[i].ordStatus;
 			row.insertCell(6).innerHTML			=	new Date(data[i].timestamp).toLocaleDateString();
 			
+			row.classList = data[i].side.substring(0,3) == "Buy" ? "borderBuy" : "borderSell";
 		}	
 	}
 }

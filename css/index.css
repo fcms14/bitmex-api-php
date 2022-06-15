@@ -239,6 +239,14 @@ tr:hover td{
     color: #F75A68;
 }
 
+.borderBuy{
+    border-left: 5px #20ec4c solid;
+}
+
+.borderSell{
+    border-left: 5px #F75A68 solid;
+}
+
 @keyframes fade-in {
     from {
         color: aqua;

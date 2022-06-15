@@ -82,7 +82,6 @@ export function popPositions(tableElement, data){
 		const table					=	tableElement;	
 	
 		for (let i = 0; i < data.length; i++) {
-
 			const row 				=	table.insertRow(0);
 			const qtyFormated		=	qtyFormat(data[i].currentQty, data[i].currency);
 			const currency 			=	data[i].quoteCurrency == "USD" ? data[i].quoteCurrency : "XBT"
@@ -120,7 +119,6 @@ export function popOpenOrders(tableElement, data, bitmex){
 		const table				=	thead.createTBody();
 	
 		for (let i = 0; i < data.length; i++) {
-
 			const row 				=	table.insertRow(0);
 			const qtyFormated		=	qtyFormat(data[i].orderQty, data[i].settlCurrency);
 			const currency 			=	data[i].currency == "USD" ? data[i].currency : "XBT"
@@ -160,7 +158,6 @@ export function popOrders(tableElement, data){
 		const table				=	thead.createTBody();
 	
 		for (let i = 0; i < data.length; i++) {
-
 			const row 				=	table.insertRow(0);
 			const qtyFormated		=	qtyFormat(data[i].orderQty, data[i].settlCurrency);
 			const currency 			=	data[i].currency == "USD" ? data[i].currency : "XBT"
@@ -193,7 +190,6 @@ export function popWalletHistory(tableElement, data){
 		const table				=	thead.createTBody();
 	
 		for (let i = 0; i < data.length; i++) {
-
 			const row 				=	table.insertRow(0);
 
 			row.insertCell(0).innerHTML			=	new Date(data[i].timestamp).toLocaleDateString();
@@ -211,7 +207,6 @@ export function createTableRows(tableElement, rows){
 	const table					=	tableElement;
 	    
 	for (let i = 0; i <= rows; i++) {
-
 		const row 				=	table.insertRow(i);
 		
 		row.insertCell(0);
@@ -220,7 +215,6 @@ export function createTableRows(tableElement, rows){
 
 		row.cells[0].classList.toggle('row');
 		row.cells[1].classList.toggle('row');
-		row.cells[2].classList.toggle('row');
-		
+		row.cells[2].classList.toggle('row');		
 	}
 }

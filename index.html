@@ -12,12 +12,8 @@
 
 <body>
 
-    <div id="keysDiv">
-        api
-    </div>
-
     <div id="formKeys" class="">
-        <label for="apiID"> API Key ID </label> <span id="closeDiv"> X </span>
+        <label for="apiID"> API Key ID </label> <span id="closeFormKeys"> X </span>
         <input id="apiID" type="text" />
         <br />
         <label for="apiSecret"> API Key Secret </label>
@@ -29,6 +25,30 @@
 
         <div id="saveKeys"> Gravar </div>
     </div>
+
+    <div id="formWithdraw" class="">
+        <label for="amount"> Quantidade </label> <span id="closeFormWithdraw"> X </span>
+        <input id="amount" type="number" />
+        <br />
+        <label for="walletAddress"> Endereço da Carteira </label>
+        <input id="walletAddress" type="text" />
+        <br />
+        <label for="fee"> Fee </label>
+        <input id="fee" type="number" min="0.0002" /> 0.0002
+        <br />
+        <label for="note"> Nota opcional* </label>
+        <input id="note" type="text" /> 
+        <br />
+        <label for="twoFactor"> Two-Factor Token </label>
+        <input id="twoFactor" type="number" /> 
+
+        <div id="withdraw"> Solicitar </div>
+    </div>
+
+    <header>
+        <button value="openFormWithdraw"> Solicitar Retirada </button>
+        <div id="keysDiv"> api </div>
+    </header>
 
     <!-- TradingView Widget BEGIN -->
     <div class="tvChart">

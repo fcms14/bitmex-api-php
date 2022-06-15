@@ -34,5 +34,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         case "cancelOpenOrders":
             $orderID        = $_POST["orderID"];    
             print_r(json_encode($bitmex->cancelOpenOrders($orderID)));
+        case "requestWithdrawal":
+            $twoFactor      = $_POST["twoFactor"];    
+            $amount         = $_POST["amount"];    
+            $walletAddress  = $_POST["walletAddress"];    
+            $fee            = $_POST["fee"];    
+            $note           = $_POST["note"];    
+            print_r(json_encode($bitmex->requestWithdrawal($twoFactor, $amount, $walletAddress, $fee, $note)));
     }
 }

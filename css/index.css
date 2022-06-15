@@ -25,14 +25,14 @@ body {
     
     display: grid;
     grid-template-columns: 2fr 260px 300px;
-    grid-template-rows:  auto 270px auto;
+    grid-template-rows:  40px auto 270px auto;
     grid-template-areas: 
+    "header header header"
     "tvChart tvChart bookOffers"
     "positionMngt orderForm bookOffers"
     "mainTable mainTable bookOffers";
     grid-gap: 10px;
     padding: 20px;
-    padding-top: 50px;
 }
 
 button:disabled,
@@ -42,26 +42,27 @@ button[disabled]:hover{
   cursor: default;
 }
 
-#keysDiv {
-    position: absolute;
-    top: 12px;
-    right: 12px;
+header{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    grid-area: header;
+    gap: 20px;
+}
 
+#keysDiv {
     background-color: #065E7C;
     padding: 10px 10px;
     border-radius: 5px;
-    
 
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 700;
     color: #FFFFFF;
     cursor: pointer;
-
-    z-index: 2;
 }
 
-#formKeys{
+#formKeys, #formWithdraw{
     position: absolute;
     top: 12px;
     right: 12px;
@@ -84,11 +85,11 @@ button[disabled]:hover{
     flex-wrap: wrap;
     gap: 10px;
 
-    z-index: 3;
+    z-index: 2;
 
 }
 
-#closeDiv{
+#closeFormKeys, #closeFormWithdraw{
     position: absolute;
     background-color: #F75A68;
 
@@ -149,7 +150,7 @@ h1{
     font-size: 12px;
 }
 
-.positionMngt button, .tvChart button, .mainTable button, #saveKeys {
+.positionMngt button, .tvChart button, .mainTable button, #saveKeys, #withdraw, header button {
     background-color: #065E7C;
     padding: 10px 0;
     margin: 10px 0 10px 10px;
@@ -202,7 +203,6 @@ table tbody tr:nth-child(even) {
     background-color: #07181c;
 }
 
-/* #bookOffers tr td { */
 tr td {
     text-align: right;
     padding: 5px 10px;
@@ -212,8 +212,6 @@ tr td {
     transition: all 200ms;
 }
 
-/* #bookOffers tr:hover, */
-/* #bookOffers tr:hover td{ */
 tr:hover,
 tr:hover td{
     background-color: #FFFFFF05 ;    
@@ -305,7 +303,7 @@ header input::placeholder {
     gap: 10px;
 }
 
-.orderForm form header input, #formKeys input {
+.orderForm form header input, #formKeys input, #formWithdraw input {
     width: 90%;
     background-color: #07181c;
     padding: 5px;
@@ -340,7 +338,7 @@ header input::placeholder {
     background-color: #F75A68;
 }
 
-button:hover {
+button:hover, #keysDiv:hover, #closeFormKeys:hover, #closeFormWithdraw:hover, #saveKeys:hover, #withdraw:hover {
     opacity: 0.6;
 }
 
@@ -351,6 +349,7 @@ button:hover {
         grid-template-columns: 1fr 300px;
         grid-template-rows:  auto 270px auto auto;
         grid-template-areas: 
+        "header header"
         "tvChart bookOffers"
         "orderForm bookOffers"
         "positionMngt bookOffers"
@@ -368,6 +367,7 @@ button:hover {
         grid-template-columns: 1fr;
         grid-template-rows:  auto 270px auto auto;
         grid-template-areas: 
+        "header"
         "tvChart"
         "orderForm"
         "positionMngt"

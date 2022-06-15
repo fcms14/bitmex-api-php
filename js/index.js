@@ -21,11 +21,22 @@ const actions = {
 
         }
     },
-    save          : () => actions.enableTrade(localStorage.add({ apiID: apiID.value, apiSecret: apiSecret.value, testnet: testnet.checked }), buttons),
-    close         : () => formKeys.classList.remove("displayOn"),
-    open          : () => formKeys.classList = "displayOn",
-    displayVolume : () => volume.value = (quantity.value / price.value).toFixed(4),
-    enableTrade   : (keys, buttons)  => {    
+    requestWithdrawal  : async() => {
+        if(amount.value, walletAddress.value, fee.value, twoFactor.value){
+            if(confirm(`Solicitar retirada de ${amount.value} Bitcoin \nPara a carteira: ${walletAddress.value} \nTaxa de saque de: ${fee.value} ? `)){
+                if(await bitmex.requestWithdrawal("requestWithdrawal", twoFactor.value, amount.value, walletAddress.value, fee.value, note.value)){
+                    alert("Confira seu e-mail");
+                };
+            }
+        }
+    },
+    save             : () => actions.enableTrade(localStorage.add({ apiID: apiID.value, apiSecret: apiSecret.value, testnet: testnet.checked }), buttons),
+    closeDivKeys     : () => formKeys.classList.remove("displayOn"),
+    closeDivWithdraw : () => formWithdraw.classList.remove("displayOn"),
+    openFormKeys     : () => formKeys.classList = "displayOn",
+    openFormWithdraw : () => formWithdraw.classList = "displayOn",
+    displayVolume    : () => volume.value = (quantity.value / price.value).toFixed(4),
+    enableTrade      : (keys, buttons)  => {    
         if (keys == "" || keys.apiID == "" || keys.apiSecret == "") {
             keysDiv.innerHTML = "Adicionar Chaves";
             for (let button of buttons) {
@@ -63,7 +74,7 @@ const actions = {
 
 const buttons   = document.querySelectorAll(`button`);
 for (let button of buttons){
-    button.addEventListener('click', await handle) 
+    button.addEventListener('click', handle) 
 }
 
 async function handle(e){
@@ -76,9 +87,11 @@ async function handle(e){
 createTableRows(bookOffers, 50);
 actions.enableTrade(localStorage.load(), buttons);
 
+keysDiv.addEventListener('click', actions.openFormKeys);
 saveKeys.addEventListener('click', actions.save);
-closeDiv.addEventListener('click', actions.close);
-keysDiv.addEventListener('click', actions.open);
+closeFormKeys.addEventListener('click', actions.closeDivKeys);
+closeFormWithdraw.addEventListener('click', actions.closeDivWithdraw);
+withdraw.addEventListener('click', actions.requestWithdrawal);
 
 quantity.addEventListener('keydown', actions.displayVolume);
 price.addEventListener('keydown', actions.displayVolume);

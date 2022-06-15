@@ -20,7 +20,7 @@ class BitMex {
   private $ch;
 
   public $error;
-  public $printErrors = false;
+  public $printErrors = true;
   public $errorCode;
   public $errorMessage;
 
@@ -583,6 +583,37 @@ public function getCandles($timeFrame, $startWhen, $endWhen, $offset = 0) {
     );
 
     return $this->authQuery($data);
+  }
+
+  /*
+   * Create Withdrawal Request
+   *
+   * @param $twoFactor 2FA token. Required for all external withdrawals
+   * @param $amount Amount of withdrawal currency
+   * @param $walletAddress Destination Address
+   * @param $fee Network fee for Bitcoin withdrawals. If not specified, a default value will be calculated based on Bitcoin network conditions. You will have a chance to confirm this via email
+   * @param $note Optional annotation, e.g. 'Transfer to home wallet'
+   * 
+   * @return new withdrawal request array
+   */
+
+  public function requestWithdrawal($twoFactor, $amount, $walletAddress, $fee, $note = "") {
+
+    // $symbol = self::SYMBOL;
+    $data['method'] = "POST";
+    $data['function'] = "user/requestWithdrawal";
+    $data['params'] = array(
+      "otpToken" => $twoFactor,
+      "currency" => "XBt",
+      "amount" => $amount * 100000000,
+      "address" => $walletAddress,
+      "fee" => $fee * 100000000,
+      "text" => $note
+    );
+
+    return $this->authQuery($data);
+
+    // return $fee * 100000000;
   }
 
   /*

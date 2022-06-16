@@ -25,14 +25,14 @@ body {
     
     display: grid;
     grid-template-columns: 2fr 260px 300px;
-    grid-template-rows:  40px auto 270px auto;
+    grid-template-rows:  60px auto 270px auto;
     grid-template-areas: 
     "header header header"
     "tvChart tvChart bookOffers"
     "positionMngt orderForm bookOffers"
     "mainTable mainTable bookOffers";
     grid-gap: 10px;
-    padding: 20px;
+    padding: 0 20px 20px 0;
 }
 
 button:disabled,
@@ -45,9 +45,11 @@ button[disabled]:hover{
 header{
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     grid-area: header;
-    gap: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+    height: 100%;
 }
 
 #keysDiv {
@@ -196,11 +198,11 @@ table thead th {
 }
 
 table tbody tr {
-    background-color: #030B0D;
+    background-color: #07181c;
 }
 
 table tbody tr:nth-child(even) {
-    background-color: #07181c;
+    background-color: #030B0D;
 }
 
 tr td {

@@ -49,6 +49,38 @@ class BitMex {
    */
 
   /*
+   * Get Instrument Active
+   *
+   * @return Instruments Active array
+   */
+
+  public function getInstrumentsActive() {
+
+    $data['function'] = "instrument/active";
+    $data['params'] = array();
+
+    $return = $this->publicQuery($data);
+
+    // $tickers = array();
+	  // $tickerI = 0;
+    // // Converting
+    // foreach($return as $item) {
+    //   $tickers[$tickerI] = array(
+    //     'symbol' => $item['symbol']
+    //   );
+	  //   $tickerI++;
+    // }
+    // return $tickers;
+    return $return;
+  }
+
+
+
+  /*
+   * Public
+   */
+
+  /*
    * Get Ticker
    *
    * @return ticker array
@@ -481,8 +513,7 @@ public function getCandles($timeFrame, $startWhen, $endWhen, $offset = 0) {
     
     return $this->authQuery($data);
   }
-
-
+  
   /*
    * Get Wallet
    *
@@ -526,7 +557,7 @@ public function getCandles($timeFrame, $startWhen, $endWhen, $offset = 0) {
   /*
    * Get Margin
    *
-   * Get your account margin
+   * Get your account's margin status. Send a currency of "all" to receive an array of all supported currencies
    *
    * @return array
    */
@@ -536,7 +567,7 @@ public function getCandles($timeFrame, $startWhen, $endWhen, $offset = 0) {
     $data['method'] = "GET";
     $data['function'] = "user/margin";
     $data['params'] = array(
-      "currency" => "XBt"
+      // "currency" => "XBt"
     );
 
     return $this->authQuery($data);
@@ -550,9 +581,9 @@ public function getCandles($timeFrame, $startWhen, $endWhen, $offset = 0) {
    * @return array
    */
 
-  public function getOrderBook($depth = 25) {
+  public function getOrderBook($symbol, $depth = 25) {
 
-    $symbol = self::SYMBOL;
+    // $symbol = self::SYMBOL;
     $data['method'] = "GET";
     $data['function'] = "orderBook/L2";
     $data['params'] = array(

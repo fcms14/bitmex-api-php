@@ -22,9 +22,10 @@ export class BitmexHandler {
         }
     }
 
-    async get(path) {
+    async get(path, symbol = "") {
         const searchParams = new URLSearchParams();
         searchParams.append("endpoint", path);
+        searchParams.append("symbol", symbol);
 
         return await this.#fetchPhp(searchParams);
     }

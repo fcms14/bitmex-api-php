@@ -46,6 +46,26 @@
     </div>
 
     <header>
+        <div>
+            <table>
+                <tr>
+                    <td>Saldo:</td>         <td id="walletBalance"></td>
+                    <td>PnL Aberto:</td>    <td id="unrealisedPnl"></td>
+                </tr>
+                <tr>
+                    <td>Margem:</td>        <td id="marginBalance"></td>
+                    <td>Disponível:</td>    <td id="availableMargin"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <label for="selectTickers">Ticker</label> <br />
+            <select id="selectTickers">
+                <option value="XBTUSD">XBTUSD</option>
+            </select>
+        </div>
+        
         <button value="openFormWithdraw"> Solicitar Retirada </button>
         <div id="keysDiv"> api </div>
     </header>

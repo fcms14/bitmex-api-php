@@ -9,8 +9,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bitmex         =   new bitmex($key1, $key2, $testnet);
 
     switch ($_POST["endpoint"]) {
+        case "getInstrumentsActive":
+            print_r(json_encode($bitmex->getInstrumentsActive()));
+            break;
         case "getOrderBook":
-            print_r(json_encode($bitmex->getOrderBook()));
+            $symbol       =   $_POST["symbol"];
+            print_r(json_encode($bitmex->getOrderBook($symbol)));
+            break;
+        case "getMargin":
+            print_r(json_encode($bitmex->getMargin()));
             break;
         case "getOpenOrders":
             print_r(json_encode($bitmex->getOpenOrders()));

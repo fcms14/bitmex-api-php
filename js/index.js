@@ -5,13 +5,16 @@ import { popWalletHistory, popOpenOrders, popOrders, popPositions, popOrderBook,
 const localStorage = new LocalStorage();
 let bitmex;
 let openOrders;
+let symbol = "XBTUSD";
 
 const actions = {
+    listInstruments  : async()                    => await bitmex.get("getInstrumentsActive"),
+    getMargin        : async()                    => await bitmex.get("getMargin"),
     popWalletHistory : async()                    => popWalletHistory(mainTable, await bitmex.get("getWalletHistory")),
-    popOpenOrders : async ()                      => openOrders = popOpenOrders(mainTable, await bitmex.get("getOpenOrders"), bitmex),
-    popOrders :     async ()                      => popOrders(mainTable, await bitmex.get("getOrders")),
-    popPositions :  async ()                      => popPositions(openPositions, await bitmex.get("getOpenPositions")),
-    createOrder :   async (name) => {
+    popOpenOrders    : async ()                   => openOrders = popOpenOrders(mainTable, await bitmex.get("getOpenOrders"), bitmex),
+    popOrders        : async ()                   => popOrders(mainTable, await bitmex.get("getOrders")),
+    popPositions     : async ()                   => popPositions(openPositions, await bitmex.get("getOpenPositions")),
+    createOrder      : async (name)               => {
         if(name && price && quantity){
             if(confirm(`Enviar ${ name } order de ${quantity.value} contratos no valor de: $ ${price.value} ? `)){
                 await bitmex.createOrder("createOrder", "Limit", name, price.value, quantity.value);
@@ -60,7 +63,7 @@ const actions = {
     },
     countDown   : () => {
         setTimeout(async function () {
-            const filled = popOrderBook(bookOffers, await bitmex.get("getOrderBook"), openOrders);
+            const filled = popOrderBook(bookOffers, await bitmex.get("getOrderBook", symbol), openOrders);
             if (filled){
                 await actions.popOpenOrders();
                 await actions.popPositions();
@@ -86,6 +89,23 @@ async function handle(e){
 
 createTableRows(bookOffers, 50);
 actions.enableTrade(localStorage.load(), buttons);
+
+const tickers = await actions.listInstruments()
+    .then ((t) => t.sort((a,b) => (a.symbol > b.symbol) ? 1 : ((b.symbol > a.symbol) ? -1 : 0)).reverse());
+    
+console.log(tickers);
+
+for(let ticker of tickers){
+    selectTickers.insertAdjacentHTML('beforeend', `<option value="${ticker.symbol}">${ticker.symbol}</option>`);
+}
+
+const walletSumary = await actions.getMargin();
+walletBalance.innerHTML     =   (walletSumary.amount          / 100000000).toFixed(4);
+unrealisedPnl.innerHTML     =   (walletSumary.unrealisedPnl   / 100000000).toFixed(4);
+marginBalance.innerHTML     =   (walletSumary.marginBalance   / 100000000).toFixed(4);
+availableMargin.innerHTML   =   (walletSumary.availableMargin / 100000000).toFixed(4);
+
+selectTickers.addEventListener('change', async () => symbol = selectTickers.value);
 
 keysDiv.addEventListener('click', actions.openFormKeys);
 saveKeys.addEventListener('click', actions.save);

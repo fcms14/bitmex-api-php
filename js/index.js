@@ -39,27 +39,34 @@ const actions = {
     openFormKeys     : () => formKeys.classList = "displayOn",
     openFormWithdraw : () => formWithdraw.classList = "displayOn",
     displayVolume    : () => volume.value = (quantity.value / price.value).toFixed(4),
+    displayBalance   : async () => {
+        const walletSumary = await actions.getMargin();
+        walletBalance.innerHTML     =   (walletSumary.amount          / 100000000).toFixed(4);
+        unrealisedPnl.innerHTML     =   (walletSumary.unrealisedPnl   / 100000000).toFixed(4);
+        marginBalance.innerHTML     =   (walletSumary.marginBalance   / 100000000).toFixed(4);
+        availableMargin.innerHTML   =   (walletSumary.availableMargin / 100000000).toFixed(4);
+    },
     enableTrade      : (keys, buttons)  => {    
+        bitmex = new BitmexHandler(keys);
+        actions.countDown();
+        
+        apiID.value = keys.apiID || "";
+        apiSecret.value = keys.apiSecret || "";
+        testnet.checked = keys.testnet || false;
+
         if (keys == "" || keys.apiID == "" || keys.apiSecret == "") {
             keysDiv.innerHTML = "Adicionar Chaves";
             for (let button of buttons) {
                 button.disabled = true;
-            }
-        }
-    
+            }            
+        }    
         else {
+            actions.displayBalance();
             keysDiv.innerHTML = "Alterar Chaves";
             for (let button of buttons) {
                 button.disabled = false;
             }
         }
-        
-        apiID.value = keys.apiID || "";
-        apiSecret.value = keys.apiSecret || "";
-        testnet.checked = keys.testnet || false;
-    
-        bitmex = new BitmexHandler(keys);
-        actions.countDown();
     },
     countDown   : () => {
         setTimeout(async function () {
@@ -98,12 +105,6 @@ console.log(tickers);
 for(let ticker of tickers){
     selectTickers.insertAdjacentHTML('beforeend', `<option value="${ticker.symbol}">${ticker.symbol}</option>`);
 }
-
-const walletSumary = await actions.getMargin();
-walletBalance.innerHTML     =   (walletSumary.amount          / 100000000).toFixed(4);
-unrealisedPnl.innerHTML     =   (walletSumary.unrealisedPnl   / 100000000).toFixed(4);
-marginBalance.innerHTML     =   (walletSumary.marginBalance   / 100000000).toFixed(4);
-availableMargin.innerHTML   =   (walletSumary.availableMargin / 100000000).toFixed(4);
 
 selectTickers.addEventListener('change', async () => symbol = selectTickers.value);
 
